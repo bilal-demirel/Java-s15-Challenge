@@ -10,5 +10,10 @@ public interface ILibrary {
     public Book getBookByName(String name);
     public Book getBookByID(long bookID);
     void removeByCategory(String category);
-    void displayBookBorrowerMap(Library library);
+    void displayBookBorrowerMap();
+    void displayBooks();
+    void displayBookByID(long bookID);
+    void displayBooksByAuthor(String author);
+    void displayBookByName(String name);
+    void displayBookByCategory(String category);
 }

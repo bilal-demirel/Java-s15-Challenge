@@ -29,13 +29,17 @@ public class Library implements ILibrary{
     @Override
     public void addBook(Book book) {
         books.add(book);
+        System.out.println("[" + book.getTitle() + "] added to our library.");
     }
 
     @Override
     public void removeBookByID(long bookID) {
-        for(Book book : this.books){
-            if(bookID == book.getID()){
-                this.books.remove(book);
+        Iterator<Book> iter = this.books.iterator();
+        while(iter.hasNext()){
+            Book myBook = iter.next();
+            if(bookID == myBook.getID()){
+                iter.remove();
+                System.out.println("[" + myBook.getTitle() + "] removed from our library.");
             }
         }
     }
@@ -81,20 +85,80 @@ public class Library implements ILibrary{
     }
     @Override
     public void removeByCategory(String category){
+        int checker = 0;
         Iterator<Book> iter = this.books.iterator();
         while(iter.hasNext()){
             Book myBook = iter.next();
             if(category.equals(myBook.getCategory())){
                 iter.remove();
+                checker++;
+                System.out.println(checker + ". [" + myBook.getTitle() + "] removed from our library.");
             }
+        }
+        if(checker == 0) System.out.println("There is not any book in our library belong to this category.");
+    }
+    @Override
+    public void displayBookBorrowerMap(){
+        for(Map.Entry<Book, Member> log : this.getBookBorrowerMap().entrySet()){
+            Book bookLog = log.getKey();
+            Member memberLog = log.getValue();
+            System.out.println("Book Title: "  + bookLog + " Book Borrower: " + memberLog);
         }
     }
     @Override
-    public void displayBookBorrowerMap(Library library){
-        for(Map.Entry<Book, Member> log : library.getBookBorrowerMap().entrySet()){
-            Book bookLog = log.getKey();
-            Member memberLog = log.getValue();
-            System.out.println("Kitap: "  + bookLog + "\n" + memberLog + "\n");
+    public void displayBooks(){
+        int counter = 1;
+        for(Book book : this.books){
+            System.out.println(counter + ". " + book.getTitle());
+            counter++;
         }
+    }
+    @Override
+    public void displayBookByID(long bookID){
+        int checker = 0;
+        for(Book book : this.books){
+            if(bookID == book.getID()){
+                System.out.println("Book with ID: " + bookID + " is [" + book.getTitle() + "].");
+                checker++;
+            }
+        }
+        if(checker == 0) System.out.println("There is not any book in our library with this ID.");
+    }
+    @Override
+    public void displayBooksByAuthor(String author){
+        int checker = 0;
+        for(Book book : this.books){
+            if(author.equals(book.getAuthor())){
+                if(checker == 0) System.out.println(author + "'s book/books listed below:\n"
+                        + (checker+1) + ".[" + book.getTitle() + "]");
+                else System.out.println((checker+1) + ".[" + book.getTitle() + "]");
+                checker++;
+            }
+        }
+        if(checker == 0) System.out.println("There is not any book in our library belong to this author.");
+    }
+    @Override
+    public void displayBookByName(String name){
+        int checker = 0;
+        for(Book book : this.books){
+            if(name.equals(book.getTitle())){
+                System.out.println(book);
+                checker++;
+            }
+        }
+        if(checker == 0) System.out.println("There is not any book in our library belong to this name.");
+    }
+    @Override
+    public void displayBookByCategory(String category){
+        int checker = 0;
+        for(Book book : this.books){
+            if(category.equals(book.getCategory())){
+                if(checker == 0) System.out.println("Book/books belong to this category listed below:\n"
+                        + (checker+1) + ".[" + book.getTitle() + "]");
+                else System.out.println((checker+1) + ".[" + book.getTitle() + "]");
+                checker++;
+            }
+        }
+        if(checker == 0) System.out.println("There is not any book in our library belong to this category.");
     }
 }

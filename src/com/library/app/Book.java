@@ -9,8 +9,9 @@ public class Book implements IBook{
     private double price;
     private boolean isBorrowed;
     private Date dateOfBorrow;
+    private Member borrower;
 
-    public Book(long bookID, String author, String name, String category,double price) {
+    public Book(long bookID, String author, String name, String category, double price) {
         this.bookID = bookID;
         this.author = author;
         this.name = name;
@@ -32,7 +33,9 @@ public class Book implements IBook{
     public String getAuthor() {
         return this.author;
     }
-
+    public boolean isBorrowed() {
+        return isBorrowed;
+    }
     @Override
     public void displayBook() {
         System.out.println("Book Title: " + this.name);
@@ -55,6 +58,7 @@ public class Book implements IBook{
     @Override
     public void setPrice(double price){
         this.price = price;
+        System.out.println("[" + this.getTitle() + "]'s price changed as: " + price);
     }
 
     public String getCategory() {
@@ -65,11 +69,22 @@ public class Book implements IBook{
         this.category = category;
     }
 
+    public Member getBorrower(){
+        return this.borrower;
+    }
+    public void setBorrower(Member borrower){
+        this.borrower = borrower;
+    }
+    public Date getDateOfBorrow() {
+        return dateOfBorrow;
+    }
+
+    public void setDateOfBorrow(Date dateOfBorrow) {
+        this.dateOfBorrow = dateOfBorrow;
+    }
     @Override
     public String toString(){
-        return "\nBook Title: " + this.name + "\n"
-                + "Book Author: " + this.author + "\n"
-                + "Book Price: " + this.price + "\n";
+        return this.name + ", " + this.author;
     }
     @Override
     public boolean equals(Object obj){
