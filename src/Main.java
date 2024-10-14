@@ -58,5 +58,8 @@ public class Main {
         ecem.returnBook(library, lotrII); // Kitabın geri iadesi.
         ecem.returnBook(library, dune); // Elinde olmayan kitabın iade edilmeye çalışılması.
         library.displayBookBorrowerMap(); // Ödünç alınan kitaplar
+
+        //faturalar
+        library.displayBills();
     }
 }

@@ -1,11 +1,8 @@
 package com.library.app;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
-public class Member extends Library implements IMember{
+public class Member extends User implements IMember{
     private long memberID;
     private String name;
     private int borrowedBookCounter;
@@ -49,6 +46,7 @@ public class Member extends Library implements IMember{
             book.updateBookBorrowStatus();
             book.setDateOfBorrow(date);
             library.setBookBorrowerMap(myMap);
+            library.addBillToMember(this, book);
             this.borrowedBookCounter += 1;
             System.out.println(this.name + " borrowed [" + book.getTitle() + "] on [" + book.getDateOfBorrow() + "]");
         }
@@ -68,6 +66,7 @@ public class Member extends Library implements IMember{
                 iter.remove();
                 check++;
                 book.updateBookBorrowStatus();
+                library.refundBillToMember(this, book);
                 System.out.println("Ödünç Listesinden kaldırılan kitap: " + book.getTitle());
                 break;
             }
@@ -87,5 +86,9 @@ public class Member extends Library implements IMember{
         if(o == null || this.getClass() != o.getClass()) return false;
         Member myMember = (Member) o;
         return this.memberID == myMember.getMemberID();
+    }
+    @Override
+    public int hashCode(){
+        return Objects.hash(memberID);
     }
 }

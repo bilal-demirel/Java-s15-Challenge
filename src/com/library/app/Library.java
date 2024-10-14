@@ -6,10 +6,12 @@ public class Library implements ILibrary{
     private List<Book> books;
     private List<Member> members;
     private Map<Book, Member> bookBorrowerMap;
+    private Map<Member, Book> memberBillMap;
 
     public Library() {
         this.books = new LinkedList<>();
         this.bookBorrowerMap = new HashMap<>();
+        this.memberBillMap = new HashMap<>();
     }
     public Map<Book, Member> getBookBorrowerMap() {
         return bookBorrowerMap;
@@ -17,6 +19,27 @@ public class Library implements ILibrary{
 
     public void setBookBorrowerMap(Map<Book, Member> bookBorrowerMap) {
         this.bookBorrowerMap = bookBorrowerMap;
+    }
+
+    public Map<Member, Book> getMemberBillMap() {
+        return memberBillMap;
+    }
+
+    public void setMemberBillMap(Map<Member, Book> memberBillMap) {
+        this.memberBillMap = memberBillMap;
+    }
+    @Override
+    public void addBillToMember(Member member, Book book){
+        this.memberBillMap.put(member, book);
+    }
+    @Override
+    public void refundBillToMember(Member member, Book book){
+        Book borrowedBook = memberBillMap.get(member);
+        if(book.equals(borrowedBook)) memberBillMap.remove(member, book);
+    }
+    @Override
+    public void displayBills(){
+        System.out.println(memberBillMap);
     }
 
     public List<Book> getBooks(){

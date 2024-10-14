@@ -9,4 +9,5 @@ public interface IBook {
     void setAuthor(String author);
     void setName(String name);
     void setPrice(double price);
+    double getPrice();
 }

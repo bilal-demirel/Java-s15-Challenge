@@ -60,6 +60,10 @@ public class Book implements IBook{
         this.price = price;
         System.out.println("[" + this.getTitle() + "]'s price changed as: " + price);
     }
+    @Override
+    public double getPrice(){
+        return this.price;
+    }
 
     public String getCategory() {
         return category;

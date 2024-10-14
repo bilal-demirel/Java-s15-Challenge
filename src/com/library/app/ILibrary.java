@@ -16,4 +16,7 @@ public interface ILibrary {
     void displayBooksByAuthor(String author);
     void displayBookByName(String name);
     void displayBookByCategory(String category);
+    void addBillToMember(Member member, Book book);
+    void refundBillToMember(Member member, Book book);
+    void displayBills();
 }
